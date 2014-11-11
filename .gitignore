@@ -6,6 +6,7 @@
 *.egg/
 .coverage
 .project
+.ropeproject
 .idea/
 .pydevproject
 .idea/workspace.xml
@@ -15,3 +16,5 @@
 dist/
 docs/_build/
 htmlcov/
+*.swo
+*.swp

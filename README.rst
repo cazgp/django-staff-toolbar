@@ -16,15 +16,18 @@ This package has been tested in Django 1.5 and 1.6.
    :height: 136px
    :alt: django-staff-toolbar preview
 
+Requirements
+============
+
+Due to needing to test multiple settings, [django-app-settings](https://github.com/mwana/django-app-settings) is required.
+Make sure to install this before continuing.
 
 Installation
 ============
 
 First install the module, preferably in a virtual environment::
 
-    git clone https://github.com/edoburu/django-staff-toolbar.git
-    cd django-staff-toolbar
-    pip install .
+    pip install git+git://github.com/edoburu/django-staff-toolbar.git
 
 
 Configuration
@@ -42,7 +45,7 @@ Add the HTML widget to the template::
 
     {% load staff_toolbar_tags %}
 
-    {% staff_toolbar %}
+    {% render_staff_toolbar %}
 
 Make sure the layout is loaded in the template::
 
@@ -51,11 +54,24 @@ Make sure the layout is loaded in the template::
 Layout
 ------
 
-By default, a simple layout is included.
-You can change this layout to your own liking.
+To customise the layout of the toolbar, override the template "staff_toolbar/toolbar.html".
+The default is::
 
-The source SASS file is included, making it easier to
-integrate this into your project stylesheets when needed.
+    {% load staff_toolbar_tags %}
+    <ul>
+        {% staff_toolbar %}
+        <li>
+            {{ item }}
+            {% if children %}
+            <ul>
+                {{ children }}
+            </ul>
+            {% endif %}
+        </li>
+        {% end_staff_toolbar %}
+    </ul>
+
+This gives full control over the HTML rendered and can be customised however.
 
 
 Customizing the admin URL
@@ -80,11 +96,7 @@ This requires Django 1.5, which exports the ``view`` variable to the template.
 Using the template
 ------------------
 
-In the template, you can include::
-
-    {% set_staff_object page %}
-
-When needed, the URL can also be set::
+When needed, the URL can be set::
 
     {% set_staff_url %}{% url 'dashboard:catalogue-product' object.id %}{% end_set_staff_url %}
 
