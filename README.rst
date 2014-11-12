@@ -187,4 +187,4 @@ If you have any other valuable contribution, suggestion or idea, please let us k
 Testing
 =======
 
-To run the tests, `python setup.py test`.
+To run the tests, `python setup.py test`. This will automatically install `BeautifulSoup` and `mock`.

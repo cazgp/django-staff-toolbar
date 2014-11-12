@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 from os import path
 import codecs
 import re
+import os
 import sys
 
 
@@ -66,6 +67,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    test_requires=['django'],
+    tests_require=['mock', 'beautifulsoup4'],
     test_suite='tests',
 )
