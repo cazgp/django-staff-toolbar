@@ -1,7 +1,3 @@
-import tempfile
-
-TMPDIR = tempfile.mkdtemp()
-MEDIA_ROOT = TMPDIR
 DEBUG = True
 
 SECRET_KEY = 'KeepMeSecret'
