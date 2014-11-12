@@ -1,13 +1,15 @@
 {% load staff_toolbar_tags %}
-<ul>
-    {% staff_toolbar %}
-    <li>
-        {{ item }}
-        {% if children %}
-        <ul>
-            {{ children }}
-        </ul>
-        {% endif %}
-    </li>
-    {% end_staff_toolbar %}
-</ul>
+<div id="django-staff-toolbar">
+  <ul>
+      {% staff_toolbar %}
+      <li>
+          {{ item }}
+          {% if children %}
+          <ul>
+              {{ children }}
+          </ul>
+          {% endif %}
+      </li>
+      {% end_staff_toolbar %}
+  </ul>
+</div>

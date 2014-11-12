@@ -1,7 +1,7 @@
 from django.template import Library, Node
 from django.template.loader import render_to_string
-from django.utils.html import format_html, mark_safe
-from staff_toolbar.loading import import_symbol, load_toolbar_item
+from django.utils.html import mark_safe
+from staff_toolbar.loading import load_toolbar_item
 from djangoappsettings import settings
 
 register = Library()
@@ -20,6 +20,18 @@ def render_staff_toolbar(context):
 
     # Return the rendered template
     return render_to_string("staff_toolbar/toolbar.html", context_instance=context)
+
+
+@register.simple_tag(takes_context=True)
+def set_staff_object(context, object):
+    """
+    Assign an object to be the "main object" of this page.
+    Example::
+        {% set_staff_object page %}
+    """
+    request = context['request']
+    request.staff_object = object
+    return u''
 
 
 @register.tag()
@@ -74,7 +86,7 @@ class RecurseNode(Node):
 
     def __init__(self, template_nodes):
         self.template = "staff_toolbar/toolbar.html"
-        self.nodes    = template_nodes
+        self.nodes = template_nodes
 
     def _render_node(self, context, import_path):
         bits = []
@@ -84,7 +96,9 @@ class RecurseNode(Node):
             for child in item.children:
                 bits.append(self._render_node(context, child))
         context['item'] = item(context)
-        context['children'] = mark_safe(''.join(bits))
+        children = mark_safe(''.join(bits))
+        if children:
+            context['children'] = mark_safe(''.join(bits))
         rendered = self.nodes.render(context)
         context.pop()
         return rendered

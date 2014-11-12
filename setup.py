@@ -2,9 +2,17 @@
 from setuptools import setup, find_packages
 from os import path
 import codecs
-import os
 import re
-import sys
+
+
+# When creating the sdist, make sure the django.mo file also exists:
+if 'sdist' in sys.argv or 'develop' in sys.argv:
+    try:
+        os.chdir('staff_toolbar')
+        from django.core.management.commands.compilemessages import compile_messages
+        compile_messages(sys.stderr)
+    finally:
+        os.chdir('..')
 
 
 def read(*parts):
@@ -56,5 +64,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',
-    ]
+    ],
+    test_requires=['django'],
+    test_suite='tests',
 )

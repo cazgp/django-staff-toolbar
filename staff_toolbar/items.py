@@ -2,19 +2,15 @@
 These are the items that can be added to the staff toolbar.
 """
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
-from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.encoding import force_text
-from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 from django.utils.html import format_html
 
 __all__ = (
     'Group',
     'RootNode',
     'Link',
-    'AdminLink',
-    'ObjectNode',
 )
 
 
@@ -62,7 +58,6 @@ class RootNode(Group):
     title = _("Staff features")
 
 
-
 class Link(object):
     """
     Add a hard-coded link in the toolbar.
@@ -100,6 +95,7 @@ class ChangeObjectLink(Link):
     Display a link to the admin of the current page.
     It tries to fetch the URL using:
 
+    * ``{% set_staff_object ... %}``
     * ``{% set_staff_url %}...{% end_set_staff_url %}``
     * ``request.staff_url``
     * ``request.staff_object``

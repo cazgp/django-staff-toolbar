@@ -96,7 +96,11 @@ This requires Django 1.5, which exports the ``view`` variable to the template.
 Using the template
 ------------------
 
-When needed, the URL can be set::
+In the template, you can include::
+
+    {% set_staff_object page %}
+
+When needed, the URL can also be set::
 
     {% set_staff_url %}{% url 'dashboard:catalogue-product' object.id %}{% end_set_staff_url %}
 
