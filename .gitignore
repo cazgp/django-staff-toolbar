@@ -18,3 +18,4 @@ docs/_build/
 htmlcov/
 *.swo
 *.swp
+test_staff_toolbar
