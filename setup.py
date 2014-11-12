@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 from os import path
 import codecs
 import re
+import sys
 
 
 # When creating the sdist, make sure the django.mo file also exists:

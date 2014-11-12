@@ -47,31 +47,33 @@ Add the HTML widget to the template::
 
     {% render_staff_toolbar %}
 
-Make sure the layout is loaded in the template::
-
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}staff_toolbar/staff_toolbar.css" />
-
 Layout
 ------
 
-To customise the layout of the toolbar, override the template "staff_toolbar/toolbar.html".
+There is a default stylesheet for the staff toolbar. The SASS is included in this repo to enable you to customise::
+
+    <link rel="stylesheet" type="text/css" href="{% static "staff_toolbar/staff_toolbar.css" %}" />
+
+To customise the HTML of the toolbar, override "staff_toolbar/toolbar.html".
 The default is::
 
     {% load staff_toolbar_tags %}
-    <ul>
-        {% staff_toolbar %}
-        <li>
-            {{ item }}
-            {% if children %}
-            <ul>
-                {{ children }}
-            </ul>
-            {% endif %}
-        </li>
-        {% end_staff_toolbar %}
-    </ul>
+    <div id="django-staff-toolbar">
+        <ul>
+            {% staff_toolbar %}
+            <li>
+                {{ item }}
+                {% if children %}
+                <ul>
+                    {{ children }}
+                </ul>
+                {% endif %}
+            </li>
+            {% end_staff_toolbar %}
+        </ul>
+    </div>
 
-This gives full control over the HTML rendered and can be customised however.
+`children` is a special template variable which recurses over the nested items. The HTML between `{% staff_toolbar %}` and `{% end_staff_toolbar %}` will be used to display the children.
 
 
 Customizing the admin URL
